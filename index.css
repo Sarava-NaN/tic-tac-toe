@@ -1,0 +1,139 @@
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  /* transition: all 2s ease; */
+}
+body {
+  margin: 0;
+  background-color: #14bdac;
+  overflow: hidden;
+}
+:root {
+  --cell-size: 100px;
+  --mark-size: calc(var(--cell-size) * 0.9);
+}
+.board {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  grid-template-columns: repeat(3, auto);
+}
+/* Cell Styles */
+.cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  border: 6px ridge #ac14bd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+.cell:first-child,
+:nth-child(2),
+:nth-child(3) {
+  border-top: none;
+}
+.cell:nth-child(7),
+:nth-child(8),
+:nth-child(9) {
+  border-bottom: none;
+}
+.cell:nth-child(3n + 1) {
+  border-left: none;
+}
+.cell:nth-child(3n + 3) {
+  border-right: none;
+}
+/* Cell .X:before,after */
+.cell.X::before,
+.cell.X::after,
+.Player_X .cell:not(.X):not(.O):hover::before,
+.Player_X .cell:not(.X):not(.O):hover::after {
+  content: "";
+  width: calc(var(--mark-size) * 0.075);
+  height: calc(var(--mark-size));
+  position: absolute;
+}
+.cell.X::before,
+.cell.X::after {
+  background-color: rgb(84, 84, 84);
+}
+.cell.X::before,
+.Player_X .cell:not(.X):not(.O):hover::before {
+  transform: rotate(45deg);
+}
+.cell.X::after,
+.Player_X .cell:not(.X):not(.O):hover::after {
+  transform: rotate(-45deg);
+}
+/* Hover Color */
+.Player_X .cell:not(.X):not(.O):hover::before,
+.Player_X .cell:not(.X):not(.O):hover::after {
+  background-color: #e4ffe156;
+}
+/*  */
+
+/* Cell .O:before,after */
+.Player_O .cell:not(.X):not(.O):hover::before,
+.cell.O::before {
+  content: "";
+  width: calc(var(--mark-size) * 0.9);
+  height: calc(var(--mark-size) * 0.9);
+  position: absolute;
+  border-radius: 50%;
+}
+.cell.O::before {
+  border: 6px solid #e3d7ff;
+}
+
+/* .cell.O,
+.cell.X {
+  cursor: not-allowed;
+} */
+/* Hover Color */
+.Player_O .cell:not(.X):not(.O):hover::before {
+  border: 6px solid #e4ffe156;
+}
+/* Cell Styles Ends */
+
+/* Button Style */
+.winning-message {
+  position: fixed;
+  inset: 0;
+  background-color: #13293def;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 5rem;
+  color: #bdede0;
+  box-sizing: border-box;
+  transition: 1s ease;
+  display: none;
+}
+.winning-message button {
+  padding: 0.45em 1.2em;
+  border: none;
+  outline: none;
+  background-color: #e2c044;
+  color: #13293d;
+  font-size: 2.3rem;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 1s ease;
+}
+.winning-message button:hover {
+  background-color: #13293d;
+  color: #e2c044;
+  border: 4px solid #14bdac;
+  box-shadow: 0 60px 80px rgba(0, 0, 0, 0.6), 0 45px 26px rgba(0, 0, 0, 0.14);
+}
+.winning-message.show {
+  display: flex;
+}
